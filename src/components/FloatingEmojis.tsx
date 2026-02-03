@@ -1,60 +1,51 @@
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 
-const emojis = ["❤️", "💕", "✨"];
+const emojiSet = ["❤️", "💕", "💖", "💗", "💓", "💞", "✨"];
 
 const FloatingEmojis = () => {
+  // Generate 22 random floating emojis with varied properties
+  const floatingEmojis = useMemo(() => {
+    return Array.from({ length: 22 }, (_, index) => ({
+      id: index,
+      emoji: emojiSet[Math.floor(Math.random() * emojiSet.length)],
+      left: Math.random() * 90 + 5, // 5% to 95%
+      top: Math.random() * 70 + 10, // 10% to 80%
+      size: Math.random() * 1.2 + 0.8, // 0.8rem to 2rem scale
+      duration: 2.5 + Math.random() * 2, // 2.5s to 4.5s
+      delay: Math.random() * 2, // 0s to 2s delay
+      floatDistance: 10 + Math.random() * 15, // 10px to 25px float
+      rotateAmount: 5 + Math.random() * 10, // 5deg to 15deg rotation
+      xDrift: (Math.random() - 0.5) * 20, // -10px to 10px horizontal drift
+    }));
+  }, []);
+
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {emojis.map((emoji, index) => (
+      {floatingEmojis.map((item) => (
         <motion.div
-          key={index}
-          className="absolute text-2xl md:text-3xl"
+          key={item.id}
+          className="absolute"
           style={{
-            left: `${20 + index * 25}%`,
-            top: `${30 + (index % 2) * 20}%`,
+            left: `${item.left}%`,
+            top: `${item.top}%`,
+            fontSize: `${item.size}rem`,
           }}
           initial={{ opacity: 0, y: 20 }}
           animate={{
-            opacity: [0.6, 1, 0.6],
-            y: [0, -15, 0],
-            x: [0, index % 2 === 0 ? 10 : -10, 0],
-            rotate: [0, index % 2 === 0 ? 10 : -10, 0],
+            opacity: [0.4, 0.9, 0.4],
+            y: [0, -item.floatDistance, 0],
+            x: [0, item.xDrift, 0],
+            rotate: [0, item.rotateAmount, -item.rotateAmount, 0],
           }}
           transition={{
-            duration: 3 + index * 0.5,
+            duration: item.duration,
             repeat: Infinity,
-            delay: index * 0.4,
+            delay: item.delay,
             ease: "easeInOut",
           }}
         >
-          {emoji}
-        </motion.div>
-      ))}
-      
-      {/* Additional emojis on the other side */}
-      {emojis.map((emoji, index) => (
-        <motion.div
-          key={`right-${index}`}
-          className="absolute text-2xl md:text-3xl"
-          style={{
-            right: `${15 + index * 20}%`,
-            top: `${35 + (index % 2) * 25}%`,
-          }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: [0.5, 0.9, 0.5],
-            y: [0, -20, 0],
-            x: [0, index % 2 === 0 ? -8 : 8, 0],
-            rotate: [0, index % 2 === 0 ? -8 : 8, 0],
-          }}
-          transition={{
-            duration: 3.5 + index * 0.3,
-            repeat: Infinity,
-            delay: 0.5 + index * 0.3,
-            ease: "easeInOut",
-          }}
-        >
-          {emoji}
+          {item.emoji}
         </motion.div>
       ))}
     </div>
