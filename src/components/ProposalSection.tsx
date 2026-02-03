@@ -1,20 +1,19 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 import { siteContent } from "@/data";
+import FloatingEmojis from "@/components/FloatingEmojis";
 
 const ProposalSection = () => {
   const [answered, setAnswered] = useState(false);
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const noButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleYes = () => {
     // Trigger confetti explosion
     const duration = 3000;
     const animationEnd = Date.now() + duration;
-
-    const randomInRange = (min: number, max: number) => {
-      return Math.random() * (max - min) + min;
-    };
 
     const interval = setInterval(() => {
       const timeLeft = animationEnd - Date.now();
@@ -55,28 +54,47 @@ const ProposalSection = () => {
   const handleNoTouch = useCallback((e: React.TouchEvent | React.MouseEvent) => {
     e.preventDefault();
     
-    // Get viewport dimensions
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
+    if (!sectionRef.current || !noButtonRef.current) return;
     
-    // Calculate random position within safe bounds
-    const buttonWidth = 100;
-    const buttonHeight = 60;
+    const section = sectionRef.current.getBoundingClientRect();
+    const button = noButtonRef.current.getBoundingClientRect();
+    
+    // Calculate button's current center position relative to its original position
+    const buttonWidth = button.width;
+    const buttonHeight = button.height;
+    
+    // Define safe boundaries with padding
     const padding = 20;
+    const safeTop = padding;
+    const safeBottom = section.height - buttonHeight - padding - 100; // Account for safe area
+    const safeLeft = padding;
+    const safeRight = section.width - buttonWidth - padding;
     
-    const maxX = vw - buttonWidth - padding;
-    const maxY = vh - buttonHeight - padding - 100; // Account for safe area
+    // Calculate the button's original center (when position is 0,0)
+    const originalCenterX = section.width / 2;
+    const originalCenterY = section.height / 2;
     
-    const newX = Math.random() * maxX - maxX / 2;
-    const newY = Math.random() * maxY - maxY / 2;
+    // Generate random position within safe bounds
+    const randomX = safeLeft + Math.random() * (safeRight - safeLeft);
+    const randomY = safeTop + Math.random() * (safeBottom - safeTop);
+    
+    // Calculate offset from original position
+    const newX = randomX - originalCenterX + buttonWidth / 2 + 70; // Offset for button group positioning
+    const newY = randomY - originalCenterY + buttonHeight / 2;
     
     setNoButtonPosition({ x: newX, y: newY });
   }, []);
 
   return (
-    <section className="section-full flex flex-col items-center justify-center relative bg-background overflow-hidden">
+    <section 
+      ref={sectionRef}
+      className="section-full flex flex-col items-center justify-center relative bg-background overflow-hidden"
+    >
       {/* Decorative background */}
       <div className="absolute inset-0 bg-gradient-radial from-blush/40 via-transparent to-transparent" />
+      
+      {/* Floating Emojis */}
+      <FloatingEmojis />
       
       <AnimatePresence mode="wait">
         {!answered ? (
@@ -87,14 +105,28 @@ const ProposalSection = () => {
             exit={{ opacity: 0, scale: 0.9 }}
             className="flex flex-col items-center px-6 relative z-10"
           >
-            {/* Question */}
+            {/* Question with heartbeat animation */}
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="text-romantic-lg text-center mb-12 text-shadow-romantic"
+              className="text-romantic-lg text-center mb-12"
+              style={{ color: "hsl(var(--velvet))" }}
             >
-              {siteContent.proposal.question}
+              <motion.span
+                animate={{ 
+                  scale: [1, 1.02, 1, 1.03, 1],
+                }}
+                transition={{ 
+                  duration: 1.2, 
+                  repeat: Infinity, 
+                  repeatDelay: 0.5,
+                  ease: "easeInOut"
+                }}
+                className="inline-block text-shadow-romantic"
+              >
+                {siteContent.proposal.question}
+              </motion.span>
             </motion.h2>
 
             {/* Buttons - Side by side */}
@@ -112,8 +144,9 @@ const ProposalSection = () => {
                 {siteContent.proposal.yesText}
               </button>
 
-              {/* NO Button - Runs away on touch */}
+              {/* NO Button - Runs away on touch, stays within bounds */}
               <motion.button
+                ref={noButtonRef}
                 animate={noButtonPosition}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 onTouchStart={handleNoTouch}
@@ -148,6 +181,7 @@ const ProposalSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               className="text-romantic-lg text-center text-shadow-romantic"
+              style={{ color: "hsl(var(--velvet))" }}
             >
               {siteContent.proposal.successMessage}
             </motion.h2>

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { siteContent } from "@/data";
+import FloatingEmojis from "@/components/FloatingEmojis";
 
 const IntroSection = () => {
   const scrollToGallery = () => {
@@ -10,18 +11,35 @@ const IntroSection = () => {
   };
 
   return (
-    <section className="section-full flex flex-col items-center justify-center relative bg-background">
+    <section className="section-full flex flex-col items-center justify-center relative bg-background overflow-hidden">
       {/* Subtle radial gradient */}
       <div className="absolute inset-0 bg-gradient-radial from-blush/30 via-transparent to-transparent" />
       
-      {/* Main greeting */}
+      {/* Floating Emojis */}
+      <FloatingEmojis />
+      
+      {/* Main greeting with heartbeat animation */}
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        className="text-romantic-xl text-center px-6 text-shadow-romantic relative z-10"
+        className="text-romantic-xl text-center px-6 relative z-10"
+        style={{ color: "hsl(var(--velvet))" }}
       >
-        {siteContent.intro.greeting}
+        <motion.span
+          animate={{ 
+            scale: [1, 1.02, 1, 1.03, 1],
+          }}
+          transition={{ 
+            duration: 1.2, 
+            repeat: Infinity, 
+            repeatDelay: 0.5,
+            ease: "easeInOut"
+          }}
+          className="inline-block text-shadow-romantic"
+        >
+          {siteContent.intro.greeting}
+        </motion.span>
       </motion.h1>
 
       {/* Decorative line */}
