@@ -47,6 +47,7 @@
     --gold: 43 64% 52%;
     --velvet: 0 100% 8%;
     --rose-mist: 351 40% 95%;
+    --wine-red: 355 54% 33%; /* #722F37 Wine Red */
     
     /* Gradients */
     --gradient-romantic: linear-gradient(135deg, hsl(351 50% 89% / 0.8), hsl(40 33% 98%));
@@ -191,14 +192,12 @@
   /* Romantic Typography */
   .text-romantic-xl {
     font-family: 'Playfair Display', serif;
-    @apply text-5xl md:text-7xl font-medium tracking-tight;
-    color: hsl(var(--foreground));
+    @apply text-5xl md:text-7xl font-bold tracking-tight;
   }
 
   .text-romantic-lg {
     font-family: 'Playfair Display', serif;
-    @apply text-3xl md:text-5xl font-medium;
-    color: hsl(var(--foreground));
+    @apply text-3xl md:text-5xl font-bold;
   }
 
   /* Spinning Vinyl */

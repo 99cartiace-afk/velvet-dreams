@@ -28,6 +28,7 @@ export default {
         gold: "hsl(var(--gold))",
         velvet: "hsl(var(--velvet))",
         "rose-mist": "hsl(var(--rose-mist))",
+        "wine-red": "hsl(var(--wine-red))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

@@ -110,8 +110,7 @@ const ProposalSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="text-romantic-lg text-center mb-12"
-              style={{ color: "hsl(var(--velvet))" }}
+              className="text-romantic-lg text-center mb-12 text-wine-red"
             >
               <motion.span
                 animate={{ 
@@ -180,8 +179,7 @@ const ProposalSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-romantic-lg text-center text-shadow-romantic"
-              style={{ color: "hsl(var(--velvet))" }}
+              className="text-romantic-lg text-center text-shadow-romantic text-wine-red"
             >
               {siteContent.proposal.successMessage}
             </motion.h2>
