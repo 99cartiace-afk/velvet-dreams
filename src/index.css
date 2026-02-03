@@ -2,95 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
 
+/* Cinematic Romance Design System */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Palette - Warm Romance */
+    --background: 40 33% 98%; /* Warm Cream #FDFBF7 */
+    --foreground: 0 100% 8%; /* Deep Velvet #4A0404 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 40 33% 98%;
+    --card-foreground: 0 100% 8%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 40 33% 98%;
+    --popover-foreground: 0 100% 8%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Soft Blush - Primary */
+    --primary: 351 50% 89%; /* #F2D4D7 */
+    --primary-foreground: 0 100% 8%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Muted Gold - Secondary */
+    --secondary: 43 64% 52%; /* #D4AF37 */
+    --secondary-foreground: 40 33% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Deep Velvet Red - Accent */
+    --accent: 0 100% 15%; /* #4A0404 */
+    --accent-foreground: 40 33% 98%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 351 30% 92%;
+    --muted-foreground: 0 30% 30%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 351 30% 85%;
+    --input: 351 30% 85%;
+    --ring: 43 64% 52%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Custom Romance Tokens */
+    --cream: 40 33% 98%;
+    --blush: 351 50% 89%;
+    --gold: 43 64% 52%;
+    --velvet: 0 100% 8%;
+    --rose-mist: 351 40% 95%;
+    
+    /* Gradients */
+    --gradient-romantic: linear-gradient(135deg, hsl(351 50% 89% / 0.8), hsl(40 33% 98%));
+    --gradient-gold-shimmer: linear-gradient(90deg, hsl(43 64% 52%), hsl(43 70% 62%), hsl(43 64% 52%));
+    --gradient-velvet: linear-gradient(180deg, transparent, hsl(0 100% 8% / 0.7));
+    
+    /* Glass */
+    --glass-bg: hsl(40 33% 98% / 0.7);
+    --glass-border: hsl(351 50% 89% / 0.5);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Safe areas */
+    --safe-top: env(safe-area-inset-top);
+    --safe-bottom: env(safe-area-inset-bottom);
+    --safe-left: env(safe-area-inset-left);
+    --safe-right: env(safe-area-inset-right);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 0 100% 5%;
+    --foreground: 40 33% 98%;
+    --card: 0 100% 8%;
+    --card-foreground: 40 33% 98%;
+    --popover: 0 100% 8%;
+    --popover-foreground: 40 33% 98%;
+    --primary: 351 50% 89%;
+    --primary-foreground: 0 100% 8%;
+    --secondary: 43 64% 52%;
+    --secondary-foreground: 40 33% 98%;
+    --accent: 351 50% 89%;
+    --accent-foreground: 0 100% 8%;
+    --muted: 0 30% 15%;
+    --muted-foreground: 351 30% 75%;
+    --border: 0 30% 20%;
+    --input: 0 30% 20%;
+    --ring: 43 64% 52%;
   }
 }
 
@@ -99,7 +90,142 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    overscroll-behavior-y: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  /* Film Grain Overlay */
+  .film-grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  /* Glass Card */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px hsl(0 0% 0% / 0.1);
+  }
+
+  /* Section Base */
+  .section-full {
+    min-height: 100dvh;
+    height: 100dvh;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Gold Shimmer Button */
+  .btn-gold {
+    @apply relative overflow-hidden px-8 py-4 rounded-full font-medium text-lg;
+    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(43 70% 58%));
+    color: hsl(var(--background));
+    box-shadow: 0 4px 20px hsl(43 64% 52% / 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .btn-gold:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 10px hsl(43 64% 52% / 0.5);
+  }
+
+  /* Outline Button */
+  .btn-outline-gold {
+    @apply relative px-8 py-4 rounded-full font-medium text-lg;
+    background: transparent;
+    border: 2px solid hsl(var(--secondary));
+    color: hsl(var(--secondary));
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-gold:active {
+    background: hsl(var(--secondary) / 0.1);
+  }
+
+  /* Romantic Typography */
+  .text-romantic-xl {
+    font-family: 'Playfair Display', serif;
+    @apply text-5xl md:text-7xl font-medium tracking-tight;
+    color: hsl(var(--foreground));
+  }
+
+  .text-romantic-lg {
+    font-family: 'Playfair Display', serif;
+    @apply text-3xl md:text-5xl font-medium;
+    color: hsl(var(--foreground));
+  }
+
+  /* Spinning Vinyl */
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 3s linear infinite;
+  }
+
+  /* Bounce Arrow */
+  @keyframes bounce-gentle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  .animate-bounce-gentle {
+    animation: bounce-gentle 2s ease-in-out infinite;
+  }
+
+  /* Snap Carousel */
+  .snap-carousel {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .snap-carousel > * {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* Image Caption Gradient */
+  .caption-gradient {
+    background: linear-gradient(to top, hsl(0 0% 0% / 0.6), transparent);
+  }
+}
+
+@layer utilities {
+  .text-shadow-romantic {
+    text-shadow: 0 2px 20px hsl(0 0% 0% / 0.1);
   }
 }

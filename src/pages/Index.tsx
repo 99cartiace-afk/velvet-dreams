@@ -1,13 +1,27 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import AudioPlayer from "@/components/AudioPlayer";
+import IntroSection from "@/components/IntroSection";
+import GallerySection from "@/components/GallerySection";
+import ProposalSection from "@/components/ProposalSection";
+import FilmGrain from "@/components/FilmGrain";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <main className="relative overflow-x-hidden">
+      {/* Film grain overlay for cinematic effect */}
+      <FilmGrain />
+      
+      {/* Floating audio player */}
+      <AudioPlayer />
+      
+      {/* Section 1: Intro */}
+      <IntroSection />
+      
+      {/* Section 2: Gallery */}
+      <GallerySection />
+      
+      {/* Section 3: Proposal */}
+      <ProposalSection />
+    </main>
   );
 };
 
