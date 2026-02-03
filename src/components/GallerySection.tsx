@@ -1,91 +1,122 @@
-import { useRef } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/data";
+import { X } from "lucide-react";
 
 const GallerySection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedImage, setSelectedImage] = useState<typeof siteContent.gallery.images[0] | null>(null);
 
   return (
-    <section id="gallery" className="section-full relative bg-background">
-      {/* Horizontal snap carousel */}
+    <section id="gallery" className="section-full relative bg-background flex flex-col justify-center overflow-hidden">
+      {/* Section Title */}
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="font-serif text-2xl md:text-3xl text-center text-foreground mb-8 px-6"
+      >
+        Our Moments Together
+      </motion.h2>
+
+      {/* Film Strip Container */}
       <div
-        ref={containerRef}
-        className="h-full w-full overflow-x-auto snap-carousel flex"
+        className="w-full overflow-x-auto py-8"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         <style>{`
-          .snap-carousel::-webkit-scrollbar {
+          .film-strip::-webkit-scrollbar {
             display: none;
           }
         `}</style>
         
-        {siteContent.gallery.images.map((image, index) => (
-          <motion.div
-            key={image.id}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="min-w-full h-full flex-shrink-0 relative"
-          >
-            {/* Image */}
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${image.url})`,
-                backgroundColor: `hsl(${351 + index * 5} 30% ${85 - index * 5}%)`,
-              }}
+        <div className="film-strip flex gap-6 px-6 min-w-max">
+          {siteContent.gallery.images.map((image, index) => (
+            <motion.button
+              key={image.id}
+              initial={{ opacity: 0, y: 30, rotate: 0 }}
+              whileInView={{ opacity: 1, y: 0, rotate: (index % 2 === 0 ? -3 : 3) }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setSelectedImage(image)}
+              className="polaroid-card flex-shrink-0 touch-manipulation"
+              style={{ transform: `rotate(${index % 2 === 0 ? -3 : 3}deg)` }}
             >
-              {/* Placeholder gradient while loading */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blush/50 to-rose-mist/50" />
-            </div>
-
-            {/* Caption overlay */}
-            <div className="absolute bottom-0 left-0 right-0 caption-gradient pt-32 pb-16 px-6">
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="font-serif text-2xl md:text-3xl text-white text-center text-shadow-romantic"
-              >
-                {image.caption}
-              </motion.p>
-            </div>
-
-            {/* Slide indicator */}
-            <div className="absolute top-8 left-0 right-0 flex justify-center gap-2">
-              {siteContent.gallery.images.map((_, i) => (
+              {/* Polaroid Frame */}
+              <div className="bg-white p-3 pb-12 shadow-xl rounded-sm">
                 <div
-                  key={i}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    i === index ? "bg-white w-6" : "bg-white/40"
-                  }`}
+                  className="w-48 h-48 md:w-56 md:h-56 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(${image.url})`,
+                    backgroundColor: `hsl(${351 + index * 5} 30% ${85 - index * 5}%)`,
+                  }}
                 />
-              ))}
-            </div>
-
-            {/* Swipe hint on first slide */}
-            {index === 0 && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-                className="absolute top-1/2 right-4 -translate-y-1/2"
-              >
-                <motion.div
-                  animate={{ x: [0, 10, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="flex items-center gap-2 text-white/70"
-                >
-                  <span className="text-sm">Swipe</span>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </motion.div>
-              </motion.div>
-            )}
-          </motion.div>
-        ))}
+                {/* Caption */}
+                <p className="absolute bottom-3 left-0 right-0 text-center font-serif text-sm text-foreground/80 px-2">
+                  {image.caption}
+                </p>
+              </div>
+            </motion.button>
+          ))}
+        </div>
       </div>
+
+      {/* Swipe hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="flex justify-center gap-2 text-foreground/50 text-sm"
+      >
+        <span>← Swipe to explore →</span>
+      </motion.div>
+
+      {/* Modal Overlay */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-6"
+            onClick={() => setSelectedImage(null)}
+          >
+            {/* Backdrop */}
+            <div className="absolute inset-0 bg-foreground/60 backdrop-blur-md" />
+            
+            {/* Modal Content */}
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="relative z-10 max-w-lg w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute -top-12 right-0 text-white/80 hover:text-white touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="Close"
+              >
+                <X className="w-8 h-8" />
+              </button>
+
+              {/* Polaroid in Modal */}
+              <div className="bg-white p-4 pb-16 shadow-2xl rounded-sm">
+                <div
+                  className="w-full aspect-square bg-cover bg-center rounded-sm"
+                  style={{
+                    backgroundImage: `url(${selectedImage.url})`,
+                  }}
+                />
+                <p className="absolute bottom-4 left-0 right-0 text-center font-serif text-lg text-foreground px-4">
+                  {selectedImage.caption}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
