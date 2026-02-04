@@ -110,7 +110,7 @@ const ProposalSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="text-romantic-lg text-center mb-12 text-wine-red"
+              className="text-romantic-lg text-center mb-12 text-wine-red relative z-20"
             >
               <motion.span
                 animate={{ 
@@ -162,16 +162,17 @@ const ProposalSection = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="flex flex-col items-center px-6"
+            className="flex flex-col items-center px-6 relative z-20"
           >
-            {/* Heart */}
+            {/* Golden Heart */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="text-8xl mb-8"
+              className="text-8xl mb-8 text-gold"
+              style={{ filter: "drop-shadow(0 4px 12px hsl(43 64% 52% / 0.5))" }}
             >
-              💕
+              🤍
             </motion.div>
             
             {/* Success message */}
@@ -179,7 +180,7 @@ const ProposalSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-romantic-lg text-center text-shadow-romantic text-wine-red"
+              className="font-romantic text-romantic-lg text-center text-shadow-romantic text-wine-red"
             >
               {siteContent.proposal.successMessage}
             </motion.h2>
