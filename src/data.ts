@@ -1,43 +1,43 @@
 // All content isolated for easy editing
 export const siteContent = {
   intro: {
-    greeting: "Hello Beautiful",
+    greeting: "greeting idiot, i hope you are fiiiinneee",
     swipeHint: "Swipe Up",
   },
   gallery: {
     images: [
       {
         id: 1,
-        url: "/gallery/moment-1.jpg",
-        caption: "Every moment with you",
+        url: "/gallery/ilovegoa.jpg",
+        caption: "First Couply Photo 😚",
       },
       {
         id: 2,
-        url: "/gallery/moment-2.jpg",
-        caption: "Is a memory I treasure",
+        url: "/gallery/wiredearphones.jpg",
+        caption: "sharing wired earphones 🫶🏽",
       },
       {
         id: 3,
-        url: "/gallery/moment-3.jpg",
-        caption: "Forever and always",
+        url: "/gallery/miles-and-gwen.jpg",
+        caption: "Miles and Gwen 🕸️",
       },
       {
         id: 4,
-        url: "/gallery/moment-4.jpg",
-        caption: "You are my favorite",
+        url: "/gallery/matching.jpg",
+        caption: "Soft Launch Images lete hai?! 🧑🏽‍❤️‍👩🏻",
       },
       {
         id: 5,
-        url: "/gallery/moment-5.jpg",
-        caption: "Love story",
+        url: "/gallery/club.jpg",
+        caption: "Peak Outfits 💃🏽🕺🏽",
       },
     ],
   },
   proposal: {
-    question: "Will you be my Valentine?",
+    question: "will you be my Valentine? 🐷🫶🏽",
     yesText: "YES",
     noText: "NO",
-    successMessage: "See you soon! 💕",
+    successMessage: "💕 See you SOOOOOOOOOON my girlie! 💕 ilysmmmm❤️",
   },
   audio: {
     songUrl: "/audio/tum-tak.mp3",

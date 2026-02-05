@@ -172,7 +172,7 @@ const ProposalSection = () => {
               className="text-8xl mb-8 text-gold"
               style={{ filter: "drop-shadow(0 4px 12px hsl(43 64% 52% / 0.5))" }}
             >
-              🤍
+              💛
             </motion.div>
             
             {/* Success message */}

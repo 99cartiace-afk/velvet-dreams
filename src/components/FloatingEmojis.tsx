@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 
-const emojiSet = ["🥹", "🐷", "🫶🏽", "🌹", "✨", "😚", "💕", "❤️", "💖", "💗"];
+const emojiSet = ["🥹", "🐷", "🫶🏽", "🌹", "✨", "😚", "💕", "❤️", "💖", "💗","🫂"];
 
 const FloatingEmojis = () => {
-  // Generate 27 random floating emojis with varied properties
+  // Generate 33 random floating emojis with varied properties
   const floatingEmojis = useMemo(() => {
-    return Array.from({ length: 27 }, (_, index) => ({
+    return Array.from({ length: 50 }, (_, index) => ({
       id: index,
       emoji: emojiSet[Math.floor(Math.random() * emojiSet.length)],
       left: Math.random() * 90 + 5, // 5% to 95%

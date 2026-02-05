@@ -15,7 +15,7 @@ const GallerySection = () => {
         transition={{ duration: 0.8 }}
         className="font-serif text-2xl md:text-3xl text-center text-foreground mb-8 px-6"
       >
-        Our Moments Together
+        📷 Our Dreamy Goa Trip 🏖️
       </motion.h2>
 
       {/* Film Strip Container */}
@@ -67,7 +67,7 @@ const GallerySection = () => {
         transition={{ delay: 1 }}
         className="flex justify-center gap-2 text-foreground/50 text-sm"
       >
-        <span>← Swipe to explore →</span>
+        <span>← Fav pics of ours, swipe or tap to open individually →</span>
       </motion.div>
 
       {/* Modal Overlay */}
